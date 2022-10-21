@@ -1,0 +1,32 @@
+{
+  "name": "darass-be-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/yungo1846/darass-be-2022.git",
+  "author": "kiyung <kiyung@toss.im>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node src/index.ts'"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.14",
+    "@types/express-session": "^1.17.5",
+    "@types/morgan": "^1.9.3",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
+    "sequelize-cli": "^6.5.1"
+  },
+  "packageManager": "yarn@3.2.4"
+}
