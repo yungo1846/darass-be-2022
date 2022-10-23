@@ -303,6 +303,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/passport-kakao@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/passport-kakao@npm:1.0.0"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+  checksum: dca23c787efaf9d710f4e8674c2181595d879b5bc9c89424b1a86384ff5e0279c591182032b738421f844382db5fe454a8c4fe375eb5d97c9437fcab53dd2119
+  languageName: node
+  linkType: hard
+
 "@types/passport-local@npm:^1.0.34":
   version: 1.0.34
   resolution: "@types/passport-local@npm:1.0.34"
@@ -1057,6 +1067,7 @@ __metadata:
     "@types/express-session": ^1.17.5
     "@types/morgan": ^1.9.3
     "@types/passport": ^1.0.11
+    "@types/passport-kakao": ^1.0.0
     "@types/passport-local": ^1.0.34
     "@typescript-eslint/eslint-plugin": ^5.40.1
     "@typescript-eslint/parser": ^5.40.1

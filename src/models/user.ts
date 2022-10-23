@@ -1,20 +1,11 @@
-import {
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-  STRING,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./sequelize";
+import { Model, InferAttributes, InferCreationAttributes, STRING, CreationOptional } from 'sequelize';
+import { sequelize } from './sequelize';
 
-export class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare email: string;
   declare nickname: string;
-  declare password: string;
-  declare provider: CreationOptional<string>;
+  declare password: CreationOptional<string>;
+  declare provider: CreationOptional<'kakao'>;
   declare snsId: CreationOptional<string>;
 }
 
@@ -22,7 +13,7 @@ User.init(
   {
     email: {
       type: STRING(40),
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     nickname: {
@@ -31,12 +22,12 @@ User.init(
     },
     password: {
       type: STRING(100),
-      allowNull: false,
+      allowNull: true,
     },
     provider: {
       type: STRING(10),
       allowNull: false,
-      defaultValue: "local",
+      defaultValue: 'local',
     },
     snsId: {
       type: STRING(30),
@@ -47,10 +38,10 @@ User.init(
     sequelize,
     timestamps: true,
     underscored: false,
-    modelName: "User",
-    tableName: "users",
+    modelName: 'User',
+    tableName: 'users',
     paranoid: true,
-    charset: "utf8",
-    collate: "utf8_general_ci",
-  }
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+  },
 );

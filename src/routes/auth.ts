@@ -68,3 +68,14 @@ authRouter.get('/logout', loginRequired, (req, res) => {
   });
   res.status(200).send('ok');
 });
+
+authRouter.get('/kakao', passport.authenticate('kakao'));
+authRouter.get(
+  '/kakao/callback',
+  passport.authenticate('kakao', {
+    failureRedirect: '/',
+  }),
+  (req, res) => {
+    res.redirect('/');
+  },
+);
