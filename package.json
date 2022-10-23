@@ -6,7 +6,7 @@
   "author": "kiyung <kiyung@toss.im>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node src/index.ts'"
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
