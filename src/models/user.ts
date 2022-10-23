@@ -14,7 +14,7 @@ export class User extends Model<
   declare email: string;
   declare nickname: string;
   declare password: string;
-  declare provider: string;
+  declare provider: CreationOptional<string>;
   declare snsId: CreationOptional<string>;
 }
 

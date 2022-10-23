@@ -1,51 +1,56 @@
-import express from "express";
-import morgan from "morgan";
-import path from "path";
-import cookieParser from "cookie-parser";
-import session from "express-session";
-import dotenv from "dotenv";
-import { pageRouter } from "./routes/page";
-import db from "./models";
+import express from 'express';
+import morgan from 'morgan';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import { userRouter } from './routes/user';
+import db from './models';
+import passport from 'passport';
+import { authRouter } from './routes/auth';
 
 dotenv.config();
 const app = express();
 
-app.set("port", process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8000);
 app.use(express.json());
 
 db.sequelize
   .sync({ force: false })
   .then(() => {
-    console.log("db 연결 성공");
+    console.log('db 연결 성공');
   })
   .catch((error: unknown) => {
     console.error(error);
   });
 
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
     resave: false,
     saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET ?? "secret",
+    secret: process.env.COOKIE_SECRET ?? 'secret',
     cookie: {
       httpOnly: true,
       secure: true,
     },
-  })
+  }),
 );
 
-app.use("/", pageRouter);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
   res.status(404);
-  res.send("404 Not Found");
+  res.send('404 Not Found');
 });
 
-app.listen(app.get("port"), () => {
-  console.log(app.get("port"), "번 포트에서 대기 중");
+app.listen(app.get('port'), () => {
+  console.log(app.get('port'), '번 포트에서 대기 중');
 });
