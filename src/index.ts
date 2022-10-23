@@ -4,12 +4,23 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import dotenv from "dotenv";
+import { pageRouter } from "./routes/page";
+import db from "./models";
 
 dotenv.config();
 const app = express();
 
 app.set("port", process.env.PORT || 8000);
 app.use(express.json());
+
+db.sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("db 연결 성공");
+  })
+  .catch((error: unknown) => {
+    console.error(error);
+  });
 
 app.use(morgan("dev"));
 
@@ -27,6 +38,8 @@ app.use(
     },
   })
 );
+
+app.use("/", pageRouter);
 
 app.use((req, res, next) => {
   res.status(404);
