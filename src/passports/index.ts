@@ -1,5 +1,7 @@
-import passport from "passport";
-import { User } from "../models/user";
+import passport from 'passport';
+import { User } from '../models/user';
+import { kakaoStrategy } from './kakaoStrategy';
+import { localStrategy } from './localStrategy';
 
 export const passportConfig = () => {
   passport.serializeUser((user, done) => {
@@ -17,4 +19,7 @@ export const passportConfig = () => {
       done(err);
     }
   });
+
+  localStrategy();
+  kakaoStrategy();
 };

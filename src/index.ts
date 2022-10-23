@@ -8,12 +8,14 @@ import { userRouter } from './routes/user';
 import db from './models';
 import passport from 'passport';
 import { authRouter } from './routes/auth';
+import { passportConfig } from './passports';
 
 dotenv.config();
 const app = express();
 
 app.set('port', process.env.PORT || 8000);
 app.use(express.json());
+passportConfig();
 
 db.sequelize
   .sync({ force: false })
@@ -45,6 +47,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/', (req, res) => {
+  res.send('hello');
+});
 
 app.use((req, res, next) => {
   res.status(404);
