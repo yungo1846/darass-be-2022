@@ -9,6 +9,8 @@ import db from './models';
 import passport from 'passport';
 import { authRouter } from './routes/auth';
 import { passportConfig } from './passports';
+import { commentRouter } from './routes/comments';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -27,6 +29,11 @@ db.sequelize
   });
 
 app.use(morgan('dev'));
+app.use(
+  cors({
+    credentials: true,
+  }),
+);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
@@ -34,19 +41,21 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: process.env.COOKIE_SECRET ?? 'secret',
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: false,
     },
   }),
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use('/v1/comments', commentRouter);
+
 app.use('/', (req, res) => {
   res.send('hello');
 });

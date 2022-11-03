@@ -67,6 +67,7 @@ authRouter.get('/logout', loginRequired, (req, res) => {
     res.status(400).send('로그아웃 실패(세션)');
   });
   res.status(200).send('ok');
+  res.redirect('http://localhost:3000');
 });
 
 authRouter.get('/kakao', passport.authenticate('kakao'));
@@ -76,6 +77,7 @@ authRouter.get(
     failureRedirect: '/',
   }),
   (req, res) => {
-    res.redirect('/');
+    console.log(req.cookies);
+    res.redirect('http://localhost:3000');
   },
 );
