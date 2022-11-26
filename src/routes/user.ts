@@ -4,6 +4,8 @@ import { loginRequired } from '../middlewares/auth';
 export const userRouter = express.Router();
 
 userRouter.get('/profile', loginRequired, (req, res) => {
+  console.log('profile');
+
   res.status(200).send(req.user);
 });
 

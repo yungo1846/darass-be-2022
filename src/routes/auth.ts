@@ -77,7 +77,6 @@ authRouter.get(
     failureRedirect: '/',
   }),
   (req, res) => {
-    console.log(req.cookies);
     res.redirect('http://localhost:3000');
   },
 );

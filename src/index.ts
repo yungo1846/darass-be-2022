@@ -17,7 +17,6 @@ const app = express();
 
 app.set('port', process.env.PORT || 8000);
 app.use(express.json());
-passportConfig();
 
 db.sequelize
   .sync({ force: false })
@@ -29,11 +28,6 @@ db.sequelize
   });
 
 app.use(morgan('dev'));
-app.use(
-  cors({
-    credentials: true,
-  }),
-);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
@@ -41,7 +35,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: process.env.COOKIE_SECRET ?? 'secret',
     cookie: {
       httpOnly: true,
@@ -50,8 +44,15 @@ app.use(
   }),
 );
 
+passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+  }),
+);
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/v1/comments', commentRouter);
