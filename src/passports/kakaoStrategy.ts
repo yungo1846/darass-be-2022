@@ -7,7 +7,7 @@ export const kakaoStrategy = () => {
     new Strategy(
       {
         clientID: process.env.KAKAO_ID ?? '',
-        callbackURL: '/auth/kakao/callback',
+        callbackURL: '/v1/auth/kakao/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         try {

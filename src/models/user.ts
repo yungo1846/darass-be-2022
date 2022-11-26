@@ -1,4 +1,5 @@
 import { Model, InferAttributes, InferCreationAttributes, STRING, CreationOptional } from 'sequelize';
+import db from '.';
 import { sequelize } from './sequelize';
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -7,6 +8,11 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare password: CreationOptional<string>;
   declare provider: CreationOptional<'kakao'>;
   declare snsId: CreationOptional<string>;
+  declare profileImage: CreationOptional<string>;
+
+  static associate(DB: typeof db) {
+    DB.User.hasMany(DB.Comment);
+  }
 }
 
 User.init(
@@ -31,6 +37,10 @@ User.init(
     },
     snsId: {
       type: STRING(30),
+      allowNull: true,
+    },
+    profileImage: {
+      type: STRING(200),
       allowNull: true,
     },
   },

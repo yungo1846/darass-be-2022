@@ -53,8 +53,8 @@ app.use(
     origin: 'http://localhost:3000',
   }),
 );
-app.use('/users', userRouter);
-app.use('/auth', authRouter);
+app.use('/v1/users', userRouter);
+app.use('/v1/auth', authRouter);
 app.use('/v1/comments', commentRouter);
 
 app.use('/', (req, res) => {
