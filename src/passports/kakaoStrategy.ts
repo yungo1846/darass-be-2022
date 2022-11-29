@@ -18,7 +18,7 @@ export const kakaoStrategy = () => {
           } else {
             const newUser = await User.create({
               email: profile._json?.kakao_account?.email ?? null,
-              nickname: profile.displayName,
+              name: profile.displayName,
               snsId: profile.id,
               provider: 'kakao',
             });

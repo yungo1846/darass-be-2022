@@ -6,7 +6,7 @@ export class Comment extends Model<InferAttributes<Comment>, InferCreationAttrib
   declare content: string;
 
   static associate(DB: typeof db) {
-    DB.Comment.belongsTo(DB.User);
+    DB.Comment.belongsTo(DB.User, { as: 'commenter', foreignKey: 'id' });
   }
 }
 

@@ -7,7 +7,7 @@ import passport from 'passport';
 export const authRouter = express.Router();
 
 authRouter.post('/join', loginNotRequired, async (req, res, next) => {
-  const { email, nickname, password } = req.body;
+  const { email, name, password } = req.body;
 
   try {
     const exUser = await User.findOne({
@@ -24,7 +24,7 @@ authRouter.post('/join', loginNotRequired, async (req, res, next) => {
 
     await User.create({
       email,
-      nickname,
+      name,
       password: hash,
     });
 

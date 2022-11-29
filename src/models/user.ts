@@ -4,7 +4,7 @@ import { sequelize } from './sequelize';
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare email: string;
-  declare nickname: string;
+  declare name: string;
   declare password: CreationOptional<string>;
   declare provider: CreationOptional<'kakao'>;
   declare snsId: CreationOptional<string>;
@@ -22,7 +22,7 @@ User.init(
       allowNull: true,
       unique: true,
     },
-    nickname: {
+    name: {
       type: STRING(20),
       allowNull: false,
     },
