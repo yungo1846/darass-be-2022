@@ -1,5 +1,5 @@
-import { InferAttributes } from "sequelize";
-import { User as UserModel } from "./models/user";
+import { InferAttributes } from 'sequelize';
+import { User as UserModel } from './models/user';
 
 declare global {
   namespace Express {

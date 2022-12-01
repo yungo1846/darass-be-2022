@@ -1,4 +1,5 @@
 import express from 'express';
+import { loginRequired } from '../middlewares/auth';
 import { Comment } from '../models/comment';
 import { User } from '../models/user';
 
@@ -10,5 +11,18 @@ commentRouter.get('/', async (req, res) => {
     attributes: ['id', 'content', 'createdAt', 'updatedAt'],
   });
 
+  console.log(comments);
+
   res.status(200).send(comments);
+});
+
+commentRouter.post('/', loginRequired, async (req, res) => {
+  const { content } = req.body;
+
+  const comment = await Comment.create({
+    content,
+    UserId: req.user?.id ?? 1,
+  });
+
+  res.status(201).send(comment);
 });

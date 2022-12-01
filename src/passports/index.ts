@@ -10,7 +10,10 @@ export const passportConfig = () => {
 
   passport.deserializeUser(async (email: string, done) => {
     try {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({
+        where: { email },
+        attributes: ['id', 'email', 'name', 'provider', 'profileImage'],
+      });
 
       if (user == null) return;
 
