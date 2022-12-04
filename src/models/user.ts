@@ -12,7 +12,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare profileImage: CreationOptional<string>;
 
   static associate(DB: typeof db) {
-    DB.User.hasMany(DB.Comment);
+    DB.User.hasMany(DB.Comment, { foreignKey: 'commenterId', as: 'commenter' });
   }
 }
 

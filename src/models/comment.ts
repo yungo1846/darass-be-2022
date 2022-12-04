@@ -14,10 +14,10 @@ import { User } from './user';
 export class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: CreationOptional<number>;
   declare content: string;
-  declare UserId: ForeignKey<User['id']>;
+  declare commenterId: ForeignKey<User['id']>;
 
   static associate(DB: typeof db) {
-    DB.Comment.belongsTo(DB.User, { as: 'commenter', foreignKey: 'UserId' });
+    DB.Comment.belongsTo(DB.User, { foreignKey: 'commenterId', as: 'commenter' });
   }
 }
 
@@ -30,8 +30,7 @@ Comment.init(
     },
     content: {
       type: STRING(1000),
-      allowNull: true,
-      unique: true,
+      allowNull: false,
     },
   },
   {
