@@ -13,6 +13,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
   static associate(DB: typeof db) {
     DB.User.hasMany(DB.Comment, { foreignKey: 'commenterId', as: 'commenter' });
+    DB.User.hasMany(DB.Project, { foreignKey: 'ownerId', as: 'owner' });
   }
 }
 
