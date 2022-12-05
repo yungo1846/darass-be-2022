@@ -1,9 +1,20 @@
 import { RequestHandler } from 'express';
+import { User } from '../models/user';
 
-export const loginRequired: RequestHandler = (req, res, next) => {
-  console.log('login require');
+export const loginRequired: RequestHandler = async (req, res, next) => {
+  const email = req.headers['x_auth_email'];
+
+  if (email) {
+    const user = await User.findOne({ where: [{ email }] });
+
+    if (user) {
+      req.user = user;
+      return next();
+    }
+  }
+
   if (req.isAuthenticated()) {
-    next();
+    return next();
   } else {
     res.status(403).send('로그인 필요');
   }

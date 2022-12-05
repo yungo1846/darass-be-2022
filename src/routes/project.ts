@@ -16,6 +16,14 @@ ProjectRouter.get('/', loginRequired, async (req, res) => {
 ProjectRouter.post('/', loginRequired, async (req, res) => {
   const { name, mode } = req.body;
 
+  if (name == null) {
+    return res.status(400).send('name이 필요합니다.');
+  }
+
+  if (name == null) {
+    return res.status(400).send('mode가 필요합니다.');
+  }
+
   const project = await Project.create({
     name,
     mode,

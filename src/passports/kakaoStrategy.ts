@@ -8,8 +8,9 @@ export const kakaoStrategy = () => {
       {
         clientID: process.env.KAKAO_ID ?? '',
         callbackURL: '/v1/auth/kakao/callback',
+        passReqToCallback: true,
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async (req, accessToken, refreshToken, profile, done) => {
         try {
           const user = await User.findOne({ where: { snsId: profile.id, provider: 'kakao' } });
 
