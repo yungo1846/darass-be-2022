@@ -8,6 +8,7 @@ import {
   ForeignKey,
 } from 'sequelize';
 import db from '.';
+import { Post } from './post';
 import { sequelize } from './sequelize';
 import { User } from './user';
 
@@ -15,9 +16,11 @@ export class Comment extends Model<InferAttributes<Comment>, InferCreationAttrib
   declare id: CreationOptional<number>;
   declare content: string;
   declare commenterId: ForeignKey<User['id']>;
+  declare url: ForeignKey<Post['url']>;
 
   static associate(DB: typeof db) {
     DB.Comment.belongsTo(DB.User, { foreignKey: 'commenterId', as: 'commenter' });
+    DB.Comment.belongsTo(DB.Post, { foreignKey: 'url', as: 'post' });
   }
 }
 

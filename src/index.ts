@@ -11,6 +11,7 @@ import { authRouter } from './routes/auth';
 import { passportConfig } from './passports';
 import { commentRouter } from './routes/comments';
 import cors from 'cors';
+import { ProjectRouter } from './routes/project';
 
 dotenv.config();
 const app = express();
@@ -56,6 +57,7 @@ app.use(
 app.use('/v1/users', userRouter);
 app.use('/v1/auth', authRouter);
 app.use('/v1/comments', commentRouter);
+app.use('/v1/projects', ProjectRouter);
 
 app.use('/', (req, res) => {
   res.send('hello');

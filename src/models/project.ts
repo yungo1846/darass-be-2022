@@ -12,8 +12,9 @@ import { sequelize } from './sequelize';
 import { User } from './user';
 
 export class Project extends Model<InferAttributes<Project>, InferCreationAttributes<Project>> {
-  declare uuid: typeof DataTypes.UUIDV4;
+  declare id: CreationOptional<string>;
   declare name: string;
+  declare mode: 'CHAT' | 'REPLY';
   declare ownerId: ForeignKey<User['id']>;
 
   static associate(DB: typeof db) {
@@ -24,12 +25,17 @@ export class Project extends Model<InferAttributes<Project>, InferCreationAttrib
 
 Project.init(
   {
-    uuid: {
-      type: DataTypes.UUIDV4,
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: {
       type: STRING(100),
+      allowNull: false,
+    },
+    mode: {
+      type: DataTypes.ENUM('CHAT', 'REPLY'),
       allowNull: false,
     },
   },

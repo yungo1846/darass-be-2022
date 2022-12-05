@@ -9,6 +9,7 @@ export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<P
 
   static associate(DB: typeof db) {
     DB.Post.belongsTo(DB.Project, { foreignKey: 'projectId', as: 'project' });
+    DB.Post.hasMany(DB.Comment, { foreignKey: 'postURL', as: 'post' });
   }
 }
 
@@ -16,7 +17,6 @@ Post.init(
   {
     url: {
       type: DataTypes.STRING(100),
-      autoIncrement: true,
       primaryKey: true,
     },
   },
