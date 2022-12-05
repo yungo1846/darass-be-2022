@@ -6,7 +6,9 @@
   "author": "kiyung <kiyung@toss.im>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build": "tsc",
+    "start:production": "yarn build && NODE_ENV=production PORT=80 pm2 start dist/index.js -i -1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -43,6 +45,7 @@
     "passport": "^0.6.0",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
+    "pm2": "^5.2.2",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.1"
   },
