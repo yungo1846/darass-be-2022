@@ -1,7 +1,6 @@
 import express from 'express';
 import { loginRequired } from '../middlewares/auth';
 import { Comment } from '../models/comment';
-import { Post } from '../models/post';
 import { Project } from '../models/project';
 import { User } from '../models/user';
 
@@ -25,15 +24,8 @@ commentRouter.get('/', async (req, res) => {
     return res.status(404).send('존재하지 않는 프로젝트 입니다.');
   }
 
-  const post = await Post.findOne({ where: [{ url }] });
-
-  if (post == null) {
-    await Post.create({ url, projectId });
-
-    return res.status(200).send([]);
-  }
-
   const comments = await Comment.findAll({
+    where: { url, projectId },
     include: [
       {
         model: User,
@@ -48,12 +40,19 @@ commentRouter.get('/', async (req, res) => {
 });
 
 commentRouter.post('/', loginRequired, async (req, res) => {
-  const { content, url } = req.body;
+  const { content, url, projectId } = req.body;
+
+  const project = await Project.findOne({ where: [{ id: projectId }] });
+
+  if (project === null) {
+    return res.status(404).send('존재하지 않는 프로젝트 입니다.');
+  }
 
   const comment = await Comment.create({
     content,
     commenterId: req.user?.id ?? 1,
     url,
+    projectId,
   });
 
   res.status(201).send(comment);

@@ -19,7 +19,7 @@ export class Project extends Model<InferAttributes<Project>, InferCreationAttrib
 
   static associate(DB: typeof db) {
     DB.Project.belongsTo(DB.User, { foreignKey: 'ownerId', as: 'owner' });
-    DB.Project.hasMany(DB.Post, { foreignKey: 'projectId', as: 'project' });
+    DB.Project.hasMany(DB.Comment, { foreignKey: 'projectId', as: 'project' });
   }
 }
 

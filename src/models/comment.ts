@@ -8,19 +8,21 @@ import {
   ForeignKey,
 } from 'sequelize';
 import db from '.';
-import { Post } from './post';
+import { Project } from './project';
+
 import { sequelize } from './sequelize';
 import { User } from './user';
 
 export class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: CreationOptional<number>;
   declare content: string;
+  declare url: string;
   declare commenterId: ForeignKey<User['id']>;
-  declare url: ForeignKey<Post['url']>;
+  declare projectId: ForeignKey<Project['id']>;
 
   static associate(DB: typeof db) {
     DB.Comment.belongsTo(DB.User, { foreignKey: 'commenterId', as: 'commenter' });
-    DB.Comment.belongsTo(DB.Post, { foreignKey: 'url', as: 'post' });
+    DB.Comment.belongsTo(DB.Project, { foreignKey: 'projectId', as: 'project' });
   }
 }
 
@@ -33,6 +35,10 @@ Comment.init(
     },
     content: {
       type: STRING(1000),
+      allowNull: false,
+    },
+    url: {
+      type: STRING(100),
       allowNull: false,
     },
   },
