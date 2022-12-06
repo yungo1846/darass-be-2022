@@ -81,7 +81,7 @@ const init = async () => {
     app.use(passport_1.default.session());
     app.use((0, cors_1.default)({
         credentials: true,
-        origin: 'http://localhost:3000',
+        origin: '*',
     }));
     app.use('/v1/users', user_1.userRouter);
     app.use('/v1/auth', auth_1.authRouter);
