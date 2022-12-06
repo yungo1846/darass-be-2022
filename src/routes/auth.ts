@@ -77,6 +77,6 @@ authRouter.get(
     failureRedirect: '/',
   }),
   (req, res) => {
-    res.redirect('http://localhost:3000');
+    res.redirect('http://localhost:3000/oauth/success');
   },
 );
