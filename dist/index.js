@@ -81,7 +81,7 @@ const init = async () => {
     app.use(passport_1.default.session());
     app.use((0, cors_1.default)({
         credentials: true,
-        origin: '*',
+        origin: ['http://localhost:3000', 'http://darass-2022-reply-module.s3-website.ap-northeast-2.amazonaws.com'],
     }));
     app.use('/v1/users', user_1.userRouter);
     app.use('/v1/auth', auth_1.authRouter);

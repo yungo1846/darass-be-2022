@@ -64,7 +64,7 @@ const init = async () => {
   app.use(
     cors({
       credentials: true,
-      origin: '*',
+      origin: ['http://localhost:3000', 'http://darass-2022-reply-module.s3-website.ap-northeast-2.amazonaws.com'],
     }),
   );
   app.use('/v1/users', userRouter);
