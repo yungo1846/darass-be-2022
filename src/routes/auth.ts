@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 import passport from 'passport';
 
 export const authRouter = express.Router();
+const redirectURL =
+  process.env.NODE_ENV === 'production' ? 'https://reply-module.darass.site' : 'http://localhost:3000';
 
 authRouter.post('/join', loginNotRequired, async (req, res, next) => {
   const { email, name, password } = req.body;
@@ -77,6 +79,6 @@ authRouter.get(
     failureRedirect: '/',
   }),
   (req, res) => {
-    res.redirect('http://localhost:3000/oauth/success');
+    res.redirect(`${redirectURL}/oauth/success`);
   },
 );
