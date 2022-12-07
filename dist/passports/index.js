@@ -10,12 +10,12 @@ const kakaoStrategy_1 = require("./kakaoStrategy");
 const localStrategy_1 = require("./localStrategy");
 const passportConfig = () => {
     passport_1.default.serializeUser((user, done) => {
-        done(null, user.email);
+        done(null, user.id);
     });
-    passport_1.default.deserializeUser(async (email, done) => {
+    passport_1.default.deserializeUser(async (id, done) => {
         try {
             const user = await user_1.User.findOne({
-                where: { email },
+                where: { id },
                 attributes: ['id', 'email', 'name', 'provider', 'profileImage'],
             });
             if (user == null)

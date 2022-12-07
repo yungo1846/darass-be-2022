@@ -5,13 +5,13 @@ import { localStrategy } from './localStrategy';
 
 export const passportConfig = () => {
   passport.serializeUser((user, done) => {
-    done(null, user.email);
+    done(null, user.id);
   });
 
-  passport.deserializeUser(async (email: string, done) => {
+  passport.deserializeUser(async (id: string, done) => {
     try {
       const user = await User.findOne({
-        where: { email },
+        where: { id },
         attributes: ['id', 'email', 'name', 'provider', 'profileImage'],
       });
 
