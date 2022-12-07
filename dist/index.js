@@ -72,7 +72,8 @@ const init = async () => {
         secret: process.env.COOKIE_SECRET ?? 'secret',
         cookie: {
             httpOnly: true,
-            secure: false,
+            secure: true,
+            sameSite: 'none',
         },
         store: new RedisStore({ client: redisClient }),
     }));
@@ -81,7 +82,11 @@ const init = async () => {
     app.use(passport_1.default.session());
     app.use((0, cors_1.default)({
         credentials: true,
-        origin: ['http://localhost:3000', 'http://darass-2022-reply-module.s3-website.ap-northeast-2.amazonaws.com'],
+        origin: [
+            'http://localhost:3000',
+            'http://darass-2022-reply-module.s3-website.ap-northeast-2.amazonaws.com',
+            'https://reply-module.darass.site',
+        ],
     }));
     app.use('/v1/users', user_1.userRouter);
     app.use('/v1/auth', auth_1.authRouter);

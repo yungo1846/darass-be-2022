@@ -10,6 +10,7 @@ const user_1 = require("../models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const passport_1 = __importDefault(require("passport"));
 exports.authRouter = express_1.default.Router();
+const redirectURL = process.env.NODE_ENV === 'production' ? 'https://reply-module.darass.site' : 'http://localhost:3000';
 exports.authRouter.post('/join', auth_1.loginNotRequired, async (req, res, next) => {
     const { email, name, password } = req.body;
     try {
@@ -68,5 +69,5 @@ exports.authRouter.get('/kakao', passport_1.default.authenticate('kakao'));
 exports.authRouter.get('/kakao/callback', passport_1.default.authenticate('kakao', {
     failureRedirect: '/',
 }), (req, res) => {
-    res.redirect('http://localhost:3000/oauth/success');
+    res.redirect(`${redirectURL}/oauth/success`);
 });
