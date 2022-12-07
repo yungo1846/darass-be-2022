@@ -72,7 +72,7 @@ const init = async () => {
         secret: process.env.COOKIE_SECRET ?? 'secret',
         cookie: {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: 'lax',
         },
         store: new RedisStore({ client: redisClient }),
