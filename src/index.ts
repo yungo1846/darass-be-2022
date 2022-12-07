@@ -53,7 +53,7 @@ const init = async () => {
       cookie: {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',
+        sameSite: 'lax',
       },
       store: new RedisStore({ client: redisClient }),
     }),
