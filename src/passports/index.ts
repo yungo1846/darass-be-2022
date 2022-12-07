@@ -15,8 +15,6 @@ export const passportConfig = () => {
         attributes: ['id', 'email', 'name', 'provider', 'profileImage'],
       });
 
-      if (user == null) return;
-
       done(null, user);
     } catch (err) {
       done(err);

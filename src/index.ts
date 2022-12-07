@@ -24,7 +24,7 @@ const redisClient = redis.createClient({
   legacyMode: true,
 });
 const app = express();
-app.set('trust proxy', 1);
+process.env.NODE_ENV === 'production' && app.set('trust proxy', 1);
 app.set('port', process.env.PORT || 8000);
 
 const init = async () => {
@@ -53,8 +53,8 @@ const init = async () => {
       secret: process.env.COOKIE_SECRET ?? 'secret',
       cookie: {
         httpOnly: true,
-        secure: true,
-        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production' ? true : false,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       },
       store: new RedisStore({ client: redisClient }),
     }),
