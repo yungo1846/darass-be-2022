@@ -68,7 +68,7 @@ const init = async () => {
       origin: [
         'http://localhost:3000',
         'http://darass-2022-reply-module.s3-website.ap-northeast-2.amazonaws.com',
-        'https://reply-module.darass.site/',
+        'https://reply-module.darass.site',
       ],
     }),
   );
