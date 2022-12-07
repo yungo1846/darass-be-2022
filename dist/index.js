@@ -50,8 +50,9 @@ const redisClient = redis.createClient({
     legacyMode: true,
 });
 const app = (0, express_1.default)();
+app.set('trust proxy', 1);
+app.set('port', process.env.PORT || 8000);
 const init = async () => {
-    app.set('port', process.env.PORT || 8000);
     app.use(express_1.default.json());
     models_1.default.sequelize
         .sync({ force: false })
